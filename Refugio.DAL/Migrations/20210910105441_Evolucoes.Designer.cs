@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Refugio.DAL.DbContexts;
 
 namespace Refugio.DAL.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20210910105441_Evolucoes")]
+    partial class Evolucoes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,9 +51,6 @@ namespace Refugio.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DataConclusao")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Descricao")
                         .HasColumnType("nvarchar(max)");
 
@@ -70,36 +69,32 @@ namespace Refugio.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("27207e28-ff3b-4122-ad80-dd6ab9c5db16"),
+                            Id = new Guid("b266c0bb-3bc4-4f56-acae-151b403e7ab3"),
                             Categoria = "Desenvolvimento",
-                            DataConclusao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Descricao = "Building an API is one thing, but building a truly RESTful API is something different. In this course, you'll learn how to build one using ASP.NET Core 3.",
                             Tipo = "Curso",
                             Titulo = "Building a RESTful API with ASP.NET Core 3"
                         },
                         new
                         {
-                            Id = new Guid("1a68d9af-87dd-44c3-a0e5-808d8daaf57f"),
+                            Id = new Guid("e3da731a-ff25-4b60-82a6-e4d8d19b776d"),
                             Categoria = "Desenvolvimento",
-                            DataConclusao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Descricao = "Even bad code can function. But if code isn’t clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn’t have to be that way.",
                             Tipo = "Livro",
                             Titulo = "Clean Code"
                         },
                         new
                         {
-                            Id = new Guid("2332a60a-f9e2-4a0f-ac06-1261f511f626"),
+                            Id = new Guid("785218f4-fb36-435c-a173-93ddc7cc1112"),
                             Categoria = "Ficção",
-                            DataConclusao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Descricao = "Winter is coming. Such is the stern motto of House Stark, the northernmost of the fiefdoms that owe allegiance to King Robert Baratheon in far-off King’s Landing",
                             Tipo = "Livro",
                             Titulo = "A Game of Thrones"
                         },
                         new
                         {
-                            Id = new Guid("5e9c0d80-88ef-48ce-8f37-ef429ada153f"),
+                            Id = new Guid("37d42e2a-a19e-485d-a374-8a756c389484"),
                             Categoria = "Ciencia",
-                            DataConclusao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Descricao = "O planeta Terra tem cerca de 4,5 bilhões de anos. Numa fração ínfima desse tempo, uma espécie entre incontáveis outras o dominou: nós, humanos. Somos os animais mais evoluídos e mais destrutivos que jamais viveram.",
                             Tipo = "Livro",
                             Titulo = "Sapiens"

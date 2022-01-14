@@ -14,5 +14,7 @@ namespace Refugio.Entities
         [Required]
         public string Titulo { get; set; }
         public string Descricao { get; set; }
+        [Required]
+        public DateTime DataConclusao { get; set; }
     }
 }

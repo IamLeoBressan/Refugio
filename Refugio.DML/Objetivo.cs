@@ -10,5 +10,10 @@ namespace Refugio.Entities
         public DateTime DataInicio { get; set; }
         public DateTime DataFim { get; set; }
         public string Usuario { get; set; }
+
+        public int DiasAteFim()
+        {
+            return (DataFim - DataInicio).Days;
+        }
     }
 }

@@ -34,6 +34,7 @@ namespace Refugio.WebApi
             services.AddTransient<IGenericRepository, GenericRepository>();
             services.AddScoped<IEstudosRepository, EstudosRepository>();
             services.AddScoped<IObjetivosRepository, ObjetivosRepository>();
+            services.AddScoped<IEvolucaoRepository, EvolucaoRepository>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

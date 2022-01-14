@@ -44,7 +44,7 @@ namespace Refugio.Entities.Services
 
         public async Task<IEnumerable<Estudo>> GetEstudos()
         {
-            return await _mainContext.Estudos.ToListAsync();
+            return await _mainContext.Estudos.OrderByDescending(e => e.DataConclusao).ToListAsync();
         }
         public async Task<IEnumerable<Estudo>> GetEstudos(string categoria, string tipo)
         {

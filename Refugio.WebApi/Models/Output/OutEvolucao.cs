@@ -1,24 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Refugio.WebApi.Models.Input
+namespace Refugio.WebApi.Models.Output
 {
-    public class InEvolucao
+    public class OutEvolucao
     {
         public int? Id { get; set; }
-        //[Required]
         public double Peso { get; set; }
-        //[Required]
         public DateTime DataMedicao { get; set; }
         public string Observacoes { get; set; }
-        public List<InDificuldade> Dificuldades { get; set; }
-        //[Required]
+        public List<OutDificuldade> Dificuldades { get; set; }
         public bool EnviarEmail { get; set; }
         public string Email { get; set; }
-        public IFormFile Files { get; set; }
     }
 }

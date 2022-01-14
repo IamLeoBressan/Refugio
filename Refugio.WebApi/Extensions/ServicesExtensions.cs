@@ -19,7 +19,7 @@ namespace Refugio.WebApi.Extensions
             if (string.IsNullOrEmpty(connectionStringSeg))
                 throw new Exception("Connection string não foi configurada");
 
-            services.AddDbContext<UsersContexto>(options => options.UseSqlServer(connectionStringSeg));
+            services.AddDbContext<UsersContexto>(options => options.UseSqlServer(connectionStringSeg));           
 
             services.AddIdentity<Usuario, IdentityRole>()
                 .AddEntityFrameworkStores<UsersContexto>()

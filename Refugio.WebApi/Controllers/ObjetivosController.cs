@@ -62,7 +62,7 @@ namespace Refugio.WebApi.Controllers
 
                 return Ok(_mapper.Map<OutObjetivosVM>(estudoRetorno));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return StatusCode(500);
             }
