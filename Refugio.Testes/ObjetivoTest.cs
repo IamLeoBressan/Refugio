@@ -6,17 +6,22 @@ namespace Refugio.Testes
     public class ObjetivoTest
     {
         [Fact]
-        public void DiasAteObjetivo()
+        public void DiasAteObjetivoTest()
         {
+            // Arrange
             var Objetivo = new Objetivo()
             {
                 DataFim = new DateTime(2022, 03, 01),
                 DataInicio = new DateTime()
             };
 
-            var diasFaltando = (Objetivo.DataFim - Objetivo.DataInicio).Days;
+            var excpected = (Objetivo.DataFim - Objetivo.DataInicio).Days;
 
-            Assert.Equal(diasFaltando, Objetivo.DiasAteFim());
+            // Act
+            var actual = Objetivo.DiasAteFim();
+
+            //Assert
+            Assert.Equal(excpected, actual);
 
         }
     }
