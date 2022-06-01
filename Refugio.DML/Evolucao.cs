@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Refugio.Entities
 {
-    public class Evolucao : BaseInterface
+    public class Evolucao : BaseInterface, BaseUser
     {
         public int? Id { get; set; }
         public double Peso { get; set; }
@@ -15,5 +12,7 @@ namespace Refugio.Entities
         public List<Dificuldade> Dificuldades { get; set; }
         public bool EnviarEmail { get; set; }
         public string Email { get; set; }
+        public List<Imagem> Imagens { get; set; } = new List<Imagem>();
+        public string Usuario { get; set; }
     }
 }

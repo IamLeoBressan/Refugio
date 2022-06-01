@@ -2,10 +2,7 @@
 using Refugio.Entities;
 using Refugio.WebApi.Models.Input;
 using Refugio.WebApi.Models.Output;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Refugio.WebApi.Profiles
 {
@@ -13,7 +10,13 @@ namespace Refugio.WebApi.Profiles
     {
         public EvolucaoProfile()
         {
-            CreateMap<Evolucao, OutEvolucao>();
+            CreateMap<Imagem, OutImagem>();
+
+            CreateMap<Evolucao, OutEvolucao>()
+                .ForMember(dest => dest.QuantidadeImagens, opt => opt.MapFrom(org => org.Imagens.Count));
+
+            CreateMap<Evolucao, OutEvolucaoDetalhe>();
+
             CreateMap<InEvolucao, Evolucao>();
 
             CreateMap<Dificuldade, OutDificuldade>();

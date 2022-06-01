@@ -2,7 +2,7 @@
 
 namespace Refugio.Entities
 {
-    public class Objetivo: BaseInterface
+    public class Objetivo: BaseInterface, BaseUser
     {
         public int? Id { get; set; }
         public string Titulo { get; set; }
@@ -11,9 +11,21 @@ namespace Refugio.Entities
         public DateTime DataFim { get; set; }
         public string Usuario { get; set; }
 
-        public int DiasAteFim()
+        public bool Ativo
         {
-            return (DataFim - DataInicio).Days;
+            get
+            {
+                var dataAtual = DateTime.Now;
+                return DataFim > dataAtual && DataInicio <= dataAtual;
+            }
+        }
+
+        public int DiasAteFim
+        {
+            get
+            {
+                return (DataFim - DataInicio).Days;
+            }
         }
     }
 }

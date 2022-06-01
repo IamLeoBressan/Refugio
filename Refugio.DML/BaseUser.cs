@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Refugio.Entities
 {
-    public interface BaseInterface 
+    public interface BaseUser
     {
-        public int? Id { get; set; }        
+        public string Usuario { get; set; }
     }
 }

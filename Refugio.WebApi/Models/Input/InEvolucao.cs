@@ -10,15 +10,18 @@ namespace Refugio.WebApi.Models.Input
     public class InEvolucao
     {
         public int? Id { get; set; }
-        //[Required]
+        [Required]
         public double Peso { get; set; }
-        //[Required]
+        [Required]
         public DateTime DataMedicao { get; set; }
         public string Observacoes { get; set; }
         public List<InDificuldade> Dificuldades { get; set; }
-        //[Required]
+        [Required]
         public bool EnviarEmail { get; set; }
         public string Email { get; set; }
-        public IFormFile Files { get; set; }
+
+        public List<InImagem> FilesImg { get; set; }
+
+        public List<IFormFile> Files { get; set; }
     }
 }

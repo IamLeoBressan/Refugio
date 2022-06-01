@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Refugio.DAL.DbContexts;
 
 namespace Refugio.DAL.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20220324204016_AdicionandoCampoImagensNaEvolucao")]
+    partial class AdicionandoCampoImagensNaEvolucao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,7 +72,7 @@ namespace Refugio.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("359b01fe-3092-411c-9876-d1c75e4e2db1"),
+                            Id = new Guid("70453e44-f2e9-4faf-bf04-f3c00139e8ef"),
                             Categoria = "Desenvolvimento",
                             DataConclusao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Descricao = "Building an API is one thing, but building a truly RESTful API is something different. In this course, you'll learn how to build one using ASP.NET Core 3.",
@@ -79,7 +81,7 @@ namespace Refugio.DAL.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e4abd9b0-84ab-4312-9397-6167302485ed"),
+                            Id = new Guid("456e31cf-394a-44cf-8d8d-cd8d417cf6ee"),
                             Categoria = "Desenvolvimento",
                             DataConclusao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Descricao = "Even bad code can function. But if code isn’t clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn’t have to be that way.",
@@ -88,7 +90,7 @@ namespace Refugio.DAL.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7e2efa6f-9f6f-4db3-871c-a33331434c37"),
+                            Id = new Guid("ee6b06a6-fd5d-4245-823d-ec69e4902824"),
                             Categoria = "Ficção",
                             DataConclusao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Descricao = "Winter is coming. Such is the stern motto of House Stark, the northernmost of the fiefdoms that owe allegiance to King Robert Baratheon in far-off King’s Landing",
@@ -97,7 +99,7 @@ namespace Refugio.DAL.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c92334fd-fc63-49d4-80d4-7f24ff468e1f"),
+                            Id = new Guid("efd73e8c-51e1-4ad3-8cae-e74021edb78a"),
                             Categoria = "Ciencia",
                             DataConclusao = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Descricao = "O planeta Terra tem cerca de 4,5 bilhões de anos. Numa fração ínfima desse tempo, uma espécie entre incontáveis outras o dominou: nós, humanos. Somos os animais mais evoluídos e mais destrutivos que jamais viveram.",
@@ -127,9 +129,6 @@ namespace Refugio.DAL.Migrations
 
                     b.Property<double>("Peso")
                         .HasColumnType("float");
-
-                    b.Property<string>("Usuario")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

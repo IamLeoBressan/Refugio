@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Refugio.DAL.Services.Interfaces;
 using Refugio.Entities;
@@ -13,6 +15,7 @@ namespace Refugio.WebApi.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ObjetivosController : ControllerBase
     {
 
@@ -24,26 +27,36 @@ namespace Refugio.WebApi.Controllers
             _mapper = mapper;
         }
 
-
         [HttpGet]
         public async Task<ActionResult<OutObjetivosVM>> GetAll()
         {
-            var objetivos = await _objetivosRepository.GetALL<Objetivo>();
-
-            if (objetivos == null || !objetivos.Any())
+            try
             {
-                return NotFound();
+                var usuario = User.Identity.Name;
+
+                var objetivos = await _objetivosRepository.GetAllObjetivosByUser(usuario);
+
+                if (objetivos == null || !objetivos.Any())
+                {
+                    return NotFound();
+                }
+
+                return Ok(_mapper.Map<IEnumerable<OutObjetivosVM>>(objetivos));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
             }
 
-            return Ok(_mapper.Map<IEnumerable<OutObjetivosVM>>(objetivos));
+            
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<OutObjetivosVM>> Find(int id)
         {
-            //Thread.Sleep(10000);
+            var usuario = User.Identity.Name;
 
-            var objetivo = await _objetivosRepository.Find<Objetivo>(id);
+            var objetivo = await _objetivosRepository.FindByUser<Objetivo>(id, usuario);
 
             if (objetivo == null)
             {
@@ -56,8 +69,10 @@ namespace Refugio.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<OutObjetivosVM>> Create(InObjetivosVM objetivo)
         {
+            var usuario = User.Identity.Name;
             try
             {
+                objetivo.Usuario = usuario;
                 var estudoRetorno = await _objetivosRepository.Create(_mapper.Map<Objetivo>(objetivo));
 
                 return Ok(_mapper.Map<OutObjetivosVM>(estudoRetorno));
