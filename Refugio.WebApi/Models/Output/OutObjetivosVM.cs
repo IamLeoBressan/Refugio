@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Refugio.WebApi.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace Refugio.WebApi.Models.Input
         public DateTime DataInicio { get; set; }
         public DateTime DataFim { get; set; }
         public bool Ativo { get; set; }
+        public PrioridadeObjetivos Prioridade { get; set; }
         public int DiasAteFim { get; set; }
         public string Usuario { get; set; }
     }

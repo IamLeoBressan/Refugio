@@ -15,6 +15,8 @@ namespace Refugio.WebApi.Profiles
             CreateMap<Evolucao, OutEvolucao>()
                 .ForMember(dest => dest.QuantidadeImagens, opt => opt.MapFrom(org => org.Imagens.Count));
 
+            CreateMap<Evolucao, OutEvolucoesFiltradasGrafico>();
+
             CreateMap<Evolucao, OutEvolucaoDetalhe>();
 
             CreateMap<InEvolucao, Evolucao>();
@@ -23,4 +25,6 @@ namespace Refugio.WebApi.Profiles
             CreateMap<InDificuldade, Dificuldade>();
         }
     }
+
+
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Refugio.WebApi.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Refugio.WebApi.Models.Input
         public string Descricao { get; set; }
         public DateTime DataInicio { get; set; }
         public DateTime DataFim { get; set; }
+        public PrioridadeObjetivos Prioridade { get; set; }
         public string Usuario { get; set; }
     }
 }

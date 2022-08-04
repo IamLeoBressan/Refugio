@@ -2,6 +2,7 @@
 using Refugio.DAL.DbContexts;
 using Refugio.DAL.Services.Interfaces;
 using Refugio.Entities;
+using Refugio.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,43 @@ namespace Refugio.DAL.Services
                     .OrderByDescending(e => e.DataMedicao)
                     .AsNoTracking()
                     .ToListAsync();
+        }
+
+        public IList<Evolucao> GetAllCompleteByUser(string user, Paginacao filtrosLista, out int quantidadeTotalItens)
+        {
+            var skip = (filtrosLista.Pagina - 1) * filtrosLista.QuantidadeItensPagina;
+
+            quantidadeTotalItens = _mainContext.Evolucoes.Where(e => e.Usuario == user).Count();
+
+            return _mainContext.Evolucoes
+                    .Include(e => e.Dificuldades)
+                    .Include(e => e.Imagens)
+                    .Where(e => e.Usuario == user)
+                    .OrderByDescending(e => e.DataMedicao)
+                    .Skip(skip).Take(filtrosLista.QuantidadeItensPagina)
+                    .AsNoTracking()
+                    .ToList();
+        }
+
+        public async Task<List<string>> GetGrupoMesesEvolucoes(string user)
+        {
+            var listaAgrupara = await _mainContext.Evolucoes
+                    .Where(e => e.Usuario == user)
+                    .Select(e => $"{e.DataMedicao.Year}-{e.DataMedicao.Month.ToString().PadLeft(2, '0')}")
+                    .Distinct()
+                    .ToListAsync();
+
+            return listaAgrupara;
+        }
+
+        public async Task<List<Evolucao>> GetEvolucoesFiltradas(string user, int ano, int mes)
+        {
+            var evolucoesFiltradas = await _mainContext.Evolucoes
+                    .Where(e => e.Usuario == user && e.DataMedicao.Year == ano && e.DataMedicao.Month == mes)
+                    .OrderBy(e => e.DataMedicao)
+                    .ToListAsync();
+
+            return evolucoesFiltradas;
         }
 
         public async Task<Evolucao> FindCompleteByUser(string usuario, int Id)

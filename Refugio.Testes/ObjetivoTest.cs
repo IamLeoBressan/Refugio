@@ -18,7 +18,7 @@ namespace Refugio.Testes
             var excpected = (Objetivo.DataFim - Objetivo.DataInicio).Days;
 
             // Act
-            var actual = Objetivo.DiasAteFim();
+            var actual = Objetivo.DiasAteFim;
 
             //Assert
             Assert.Equal(excpected, actual);

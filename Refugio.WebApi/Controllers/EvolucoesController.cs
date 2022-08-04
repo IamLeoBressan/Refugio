@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Refugio.DAL.Services.Interfaces;
 using Refugio.Entities;
+using Refugio.Helpers;
 using Refugio.WebApi.Models.Input;
 using Refugio.WebApi.Models.Output;
 using System;
@@ -33,20 +34,67 @@ namespace Refugio.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<OutEvolucao>> GetAll()
+        public async Task<ActionResult<OutEvolucoesPaginacao>> GetAllPaginacao(int QuantidadeItensPagina, int Pagina)
         {
+
+            var filtro = new Paginacao
+            {
+                QuantidadeItensPagina = QuantidadeItensPagina,
+                Pagina = Pagina
+            };
+
             var usuario = User.Identity.Name;
 
-            var evolucoes = await _evolucaoRepository.GetAllCompleteByUser(usuario);
+            var filtroHelper = this._mapper.Map<Paginacao>(filtro);
 
-            evolucoes = evolucoes.OrderByDescending(e => e.DataMedicao).ToList();
+            var evolucoes = _evolucaoRepository.GetAllCompleteByUser(usuario, filtroHelper, out int quantidadeTotalItens);
 
             if (evolucoes == null || !evolucoes.Any())
             {
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<IEnumerable<OutEvolucao>>(evolucoes));
+            var outEvolucoes = _mapper.Map<IEnumerable<OutEvolucao>>(evolucoes);
+
+            var outPaginacao = new OutPaginacao(Pagina, QuantidadeItensPagina, quantidadeTotalItens);
+
+            var outEvolucoesPaginacao = new OutEvolucoesPaginacao
+            {
+                Evolucoes = outEvolucoes,
+                Paginacao = outPaginacao
+            };
+
+            return Ok(outEvolucoesPaginacao);
+        }
+
+        [HttpGet("grupoMeses")]
+        public async Task<ActionResult> GetMonthGroup()
+        {
+            var usuario = User.Identity.Name;
+
+            var grupoMeses = await _evolucaoRepository.GetGrupoMesesEvolucoes(usuario);
+
+            if (grupoMeses == null || !grupoMeses.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(grupoMeses);
+        }
+
+        [HttpGet("grafico")]
+        public async Task<ActionResult> GetEvolucoesFiltradas(int ano, int mes)
+        {
+            var usuario = User.Identity.Name;
+
+            var evolucoes = await _evolucaoRepository.GetEvolucoesFiltradas(usuario, ano, mes);
+
+            if (evolucoes == null || !evolucoes.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<IEnumerable<OutEvolucoesFiltradasGrafico>>(evolucoes));
         }
 
         [HttpGet("{id}")]
@@ -124,7 +172,7 @@ namespace Refugio.WebApi.Controllers
             catch (Exception)
             {
 
-                
+
 
                 return StatusCode(500);
             }

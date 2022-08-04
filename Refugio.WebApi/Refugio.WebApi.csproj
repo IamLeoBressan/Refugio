@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Refugio.DAL\Refugio.DAL.csproj" />
     <ProjectReference Include="..\Refugio.DML\Refugio.Entities.csproj" />
+    <ProjectReference Include="..\Refugio.Helpers\Refugio.Helpers.csproj" />
     <ProjectReference Include="..\Refugio.Seguranca\Refugio.Seguranca.csproj" />
   </ItemGroup>
 
