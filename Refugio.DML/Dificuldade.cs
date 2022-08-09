@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Refugio.Entities
 {
-    public class Dificuldade
+    public class Dificuldade: BaseInterface
     {        
         public int? Id { get; set; }
         public string Descricao { get; set; }

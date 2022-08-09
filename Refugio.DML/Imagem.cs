@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Refugio.Entities
 {
-    public class Imagem
+    public class Imagem: BaseInterface
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int EvolucaoId { get; set; }
         
         public Evolucao Evolucao { get; set; }

@@ -119,7 +119,7 @@ namespace Refugio.WebApi.Controllers
             {
                 var usuario = User.Identity.Name;
 
-                await ValidarEvolucao(usuario, evolucao.DataMedicao);
+                await ValidarEvolucao(usuario, evolucao);
 
 
                 var evolucaoEntidade = _mapper.Map<Evolucao>(evolucao);
@@ -129,7 +129,12 @@ namespace Refugio.WebApi.Controllers
 
                 PreencherImagensEvolucao(evolucao, evolucaoEntidade);
 
-                var evolucaoRetorno = await _evolucaoRepository.Create(evolucaoEntidade);
+                var evolucaoRetorno = new Evolucao();
+
+                if(evolucao.Edicao())
+                    evolucaoRetorno = await _evolucaoRepository.UpdateEvolucao(evolucaoEntidade);
+                else
+                    evolucaoRetorno = await _evolucaoRepository.Create(evolucaoEntidade);
 
                 var outEvolucao = _mapper.Map<OutEvolucao>(evolucaoRetorno);
 
@@ -151,9 +156,13 @@ namespace Refugio.WebApi.Controllers
             }
         }
 
-        private async Task ValidarEvolucao(string usuario, DateTime dataMedicao)
+        private async Task ValidarEvolucao(string usuario, InEvolucao evolucao)
         {
-            var existeEvolucaoData = await _evolucaoRepository.ExisteEvolucaoNaData(usuario, dataMedicao);
+            if (evolucao.Edicao())
+                return;
+
+
+            var existeEvolucaoData = await _evolucaoRepository.ExisteEvolucaoNaData(usuario, evolucao.DataMedicao);
 
             if (existeEvolucaoData)
                 throw new ArgumentException("Já Existe medição na data informada.");
@@ -180,18 +189,19 @@ namespace Refugio.WebApi.Controllers
 
         private static void PreencherImagensEvolucao(InEvolucao evolucao, Evolucao evolucaoEntidade)
         {
-            if (evolucao.Files == null)
+            if (evolucao.FilesImg == null)
                 return;
 
 
-            foreach (var file in evolucao.Files)
+            foreach (var img in evolucao.FilesImg)
             {
                 MemoryStream ms = new MemoryStream();
-                file.OpenReadStream().CopyTo(ms);
+                img.File.OpenReadStream().CopyTo(ms);
 
                 evolucaoEntidade.Imagens.Add(new Imagem
-                {
-                    Nome = file.FileName,
+                {   
+                    Id = img.Id > 0? img.Id: null,
+                    Nome = img.File.FileName,
                     BytesImagem = ms.ToArray()
                 });
             }

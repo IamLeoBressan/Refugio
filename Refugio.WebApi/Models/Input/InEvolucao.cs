@@ -22,6 +22,10 @@ namespace Refugio.WebApi.Models.Input
 
         public List<InImagem> FilesImg { get; set; }
 
-        public List<IFormFile> Files { get; set; }
+        public bool Edicao()
+        {
+            return this.Id != null;
+        }
+
     }
 }

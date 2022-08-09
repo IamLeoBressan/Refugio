@@ -8,6 +8,7 @@ namespace Refugio.DAL.Services.Interfaces
 {
     public interface IEvolucaoRepository : IGenericRepository
     {
+        Task<Evolucao> UpdateEvolucao(Evolucao evolucao);
         Task<IList<Evolucao>> GetAllCompleteByUser(string user);                      
         IList<Evolucao> GetAllCompleteByUser(string user, Paginacao filtrosLista, out int quantidadeTotalItens);
         Task<Evolucao> FindCompleteByUser(string usuario, int Id);

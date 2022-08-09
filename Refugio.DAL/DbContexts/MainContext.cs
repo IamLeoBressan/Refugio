@@ -13,6 +13,7 @@ namespace Refugio.DAL.DbContexts
         public DbSet<Estudo> Estudos { get; set; }
         public DbSet<Objetivo> Objetivos { get; set; }
         public DbSet<Evolucao> Evolucoes { get; set; }
+        public DbSet<Dificuldade> Dificuldades { get; set; }
         public DbSet<Imagem> Imagens { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

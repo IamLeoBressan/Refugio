@@ -78,5 +78,16 @@ namespace Refugio.DAL.Services
 
             return entity;
         }
+
+        protected void AjustaStadoEntity<T>(List<T> entidades) where T : class, BaseInterface
+        {
+            foreach (var entidade in entidades)
+            {
+                if (entidade.Id != null)
+                    _mainContext.Entry<T>(entidade).State = EntityState.Modified;
+                else
+                    _mainContext.Entry<T>(entidade).State = EntityState.Added;
+            }
+        }
     }
 }
